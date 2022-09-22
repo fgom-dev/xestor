@@ -22,4 +22,4 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
 	});
 })
 
-app.listen(Number(process.env.API_PORT), () => console.log(`Server is running in port ${process.env.API_PORT}`))
+app.listen(3001, () => console.log(`Server is running in port 3001`))

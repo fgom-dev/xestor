@@ -1,10 +1,20 @@
 import { prisma } from "../../../../prisma/client";
-import { CreateUser, IUserRepository, UserOut } from "../IUserRepository";
+import { ICreateUser, IUserRepository, IUserOut, IUserWithPassOut } from "../IUserRepository";
 
 export class UserRepository implements IUserRepository {
 	constructor(private prismaUser = prisma.user) { }
 
-	async insert(data: CreateUser): Promise<UserOut> {
+	async findByEmail(email: string): Promise<IUserWithPassOut> {
+		const user = await this.prismaUser.findUnique({
+			where: {
+				email
+			}
+		})
+
+		return user as IUserWithPassOut
+	}
+
+	async insert(data: ICreateUser): Promise<IUserOut> {
 		const user = await this.prismaUser.create({
 			data: {
 				email: data.email,

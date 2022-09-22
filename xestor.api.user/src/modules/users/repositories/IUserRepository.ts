@@ -1,4 +1,4 @@
-export type UserOut = {
+export interface IUserOut {
 	id: string
 	email: string
 	first_name: string
@@ -8,7 +8,11 @@ export type UserOut = {
 	updated_at: Date
 }
 
-export type CreateUser = {
+export interface IUserWithPassOut extends IUserOut {
+	password: string
+}
+
+export interface ICreateUser {
 	email: string
 	first_name: string
 	last_name: string
@@ -16,5 +20,6 @@ export type CreateUser = {
 }
 
 export interface IUserRepository {
-	insert(user: CreateUser): Promise<UserOut>
+	insert(user: ICreateUser): Promise<IUserOut>
+	findByEmail(email: string): Promise<IUserWithPassOut>
 }
