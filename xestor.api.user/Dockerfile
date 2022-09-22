@@ -1,6 +1,6 @@
 FROM node:alpine
 
-WORKDIR  /usr/app
+WORKDIR  /usr/xestor.user
 
 COPY package*.json ./
 

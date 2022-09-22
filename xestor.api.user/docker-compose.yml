@@ -13,31 +13,30 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - pgdata:/data
+  # db_push:
+  #   build: .
+  #   container_name: db_push
+  #   env_file:
+  #     - .env
+  #   command: npx prisma db push
+  #   volumes:
+  #     - .:/usr/xestor.user
+  #   depends_on:
+  #     - postgres
 
-  db_push:
-    build: .
-    container_name: db_push
-    env_file:
-      - .env
-    command: npx prisma db push
-    volumes:
-      - .:/usr/app
-    depends_on:
-      - postgres
-
-  app:
-    build: .
-    container_name: app
-    env_file:
-      - .env
-    command: npm run dev
-    ports:
-      - ${API_PORT}:${API_PORT}
-    volumes:
-      - .:/usr/app
-    depends_on:
-      - postgres
-      - db_push
+  # xestor.user:
+  #   build: .
+  #   container_name: xestor.user
+  #   env_file:
+  #     - .env
+  #   command: npm run dev
+  #   ports:
+  #     - ${API_PORT}:${API_PORT}
+  #   volumes:
+  #     - .:/usr/xestor.user
+  #   depends_on:
+  #     - postgres
+  #     - db_push
 
 volumes:
   pgdata:
