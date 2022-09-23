@@ -14,7 +14,7 @@ interface IUser {
 export class GenerateTokenProvider {
 	async acessToken(user: IUser) {
 		const payload: JwtPayload = {
-			sub: user.id,
+			sub: user.email,
 			iss: 'xestor.api.auth'
 		}
 
@@ -27,7 +27,7 @@ export class GenerateTokenProvider {
 
 	async refreshToken(user: IUser) {
 		const payload: JwtPayload = {
-			sub: user.id,
+			sub: user.email,
 			iss: 'xestor.api.auth'
 		}
 

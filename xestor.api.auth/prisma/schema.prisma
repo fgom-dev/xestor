@@ -9,3 +9,10 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Blacklist {
+  id    String @id @default(uuid())
+  token String @unique
+
+  @@map("black_list")
+}

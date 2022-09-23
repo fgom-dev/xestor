@@ -27,7 +27,7 @@ export class LoginUseCase {
 
 		const refreshToken = await this.generateTokenProvider.refreshToken(user.data);
 
-		const token = {
+		const token: ITokenOut = {
 			accessToken,
 			refreshToken
 		}
