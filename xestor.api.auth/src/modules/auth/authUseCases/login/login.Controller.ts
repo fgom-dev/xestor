@@ -7,9 +7,9 @@ export class LoginController {
 	async handle(req: Request, res: Response) {
 		const { email, password } = req.body
 
-		const validate = await this.loginUseCase.execute({ email, password })
+		const accessToken = await this.loginUseCase.execute({ email, password })
 
-		return res.status(200).json(validate)
+		return res.status(200).json(accessToken)
 
 	}
 }

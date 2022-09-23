@@ -1,5 +1,8 @@
 import 'express-async-errors';
 import express, { NextFunction, Request, Response } from 'express'
+import dotenv from 'dotenv';
+
+dotenv.config()
 
 import { CustomError } from './errors/CustomError'
 import { router } from './routes'
@@ -22,4 +25,4 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
 	});
 })
 
-app.listen(3001, () => console.log(`Server is running in port 3001`))
+app.listen(process.env.API_PORT, () => console.log(`Server is running in port ${process.env.API_PORT}`))
