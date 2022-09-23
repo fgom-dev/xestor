@@ -9,10 +9,6 @@ userRoutes.post('/', (req, res) => {
 	return insertUserController.handle(req, res);
 })
 
-userRoutes.get('/:email', (req, res) => {
-	return findByEmailController.handle(req, res);
-})
-
 userRoutes.post('/validate', (req, res) => {
 	return validateUserController.handle(req, res)
 })

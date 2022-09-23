@@ -1,14 +1,19 @@
 import axios from 'axios'
 import { CustomError } from '../../../../errors/CustomError'
-import { GenerateAccessTokenProvider } from '../../../../providers/GenerateAccessTokenProvider'
+import { GenerateTokenProvider } from '../../../../providers/GenerateTokenProvider'
 
-export interface ILogin {
+interface ILogin {
 	email: string
 	password: string
 }
 
+interface ITokenOut {
+	accessToken: string
+	refreshToken: string
+}
+
 export class LoginUseCase {
-	constructor(private generateAccessTokeProvider: GenerateAccessTokenProvider) { }
+	constructor(private generateTokenProvider: GenerateTokenProvider) { }
 
 	async execute({ email, password }: ILogin) {
 		const user = await axios.post('http://localhost:3000/users/validate', {
@@ -18,10 +23,15 @@ export class LoginUseCase {
 			throw new CustomError(error.response.status, error.response.data.error);
 		});
 
-		console.log(user)
+		const accessToken = await this.generateTokenProvider.acessToken(user.data);
 
-		const accessToken = await this.generateAccessTokeProvider.execute(user.data);
+		const refreshToken = await this.generateTokenProvider.refreshToken(user.data);
 
-		return accessToken
+		const token = {
+			accessToken,
+			refreshToken
+		}
+
+		return token
 	}
 }

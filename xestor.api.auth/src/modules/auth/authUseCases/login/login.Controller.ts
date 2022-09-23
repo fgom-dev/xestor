@@ -5,11 +5,13 @@ export class LoginController {
 	constructor(private loginUseCase: LoginUseCase) { }
 
 	async handle(req: Request, res: Response) {
-		const { email, password } = req.body
+		const email = res.get('email') as string
 
-		const accessToken = await this.loginUseCase.execute({ email, password })
+		const password = res.get('password') as string
 
-		return res.status(200).json(accessToken)
+		const token = await this.loginUseCase.execute({ email, password })
+
+		return res.status(200).json(token)
 
 	}
 }

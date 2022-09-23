@@ -11,8 +11,8 @@ interface IUser {
 	updated_at: Date
 }
 
-export class GenerateAccessTokenProvider {
-	async execute(user: IUser) {
+export class GenerateTokenProvider {
+	async acessToken(user: IUser) {
 		const payload: JwtPayload = {
 			sub: user.id,
 			iss: 'xestor.api.auth'
@@ -23,6 +23,19 @@ export class GenerateAccessTokenProvider {
 		})
 
 		return accessToken
+	}
+
+	async refreshToken(user: IUser) {
+		const payload: JwtPayload = {
+			sub: user.id,
+			iss: 'xestor.api.auth'
+		}
+
+		const refreshToken = sign(payload, process.env.SECRET as string, {
+			expiresIn: '15d',
+		})
+
+		return refreshToken
 	}
 
 }

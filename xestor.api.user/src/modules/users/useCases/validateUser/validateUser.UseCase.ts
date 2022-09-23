@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs'
 
 import { CustomError } from "../../../../errors/CustomError";
-import { IUserRepository } from "../../repositories/IUserRepository";
+import { IUserOut, IUserRepository } from "../../repositories/IUserRepository";
 
 export class ValidateUserUseCase {
 	constructor(private userRepository: IUserRepository) { }
@@ -19,6 +19,6 @@ export class ValidateUserUseCase {
 			throw new CustomError(400, 'User or password is invalid!')
 		}
 
-		return match
+		return user as IUserOut
 	}
 }

@@ -1,9 +1,9 @@
-import { GenerateAccessTokenProvider } from "../../../../providers/GenerateAccessTokenProvider";
+import { GenerateTokenProvider } from "../../../../providers/GenerateTokenProvider";
 import { LoginController } from "./login.Controller";
 import { LoginUseCase } from "./loginUseCase";
 
-const generateAccessTokeProvider = new GenerateAccessTokenProvider()
+const generateTokenProvider = new GenerateTokenProvider()
 
-const loginUseCase = new LoginUseCase(generateAccessTokeProvider)
+const loginUseCase = new LoginUseCase(generateTokenProvider)
 
 export const loginController = new LoginController(loginUseCase)

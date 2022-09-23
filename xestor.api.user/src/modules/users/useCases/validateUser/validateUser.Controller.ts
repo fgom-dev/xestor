@@ -7,8 +7,8 @@ export class ValidateUserController {
 	async handle(req: Request, res: Response) {
 		const { email, password } = req.body
 
-		const result = await this.validateUserUseCase.execute(email, password)
+		const user = await this.validateUserUseCase.execute(email, password)
 
-		return res.status(200).json({ validate: result })
+		return res.status(200).json(user)
 	}
 }
