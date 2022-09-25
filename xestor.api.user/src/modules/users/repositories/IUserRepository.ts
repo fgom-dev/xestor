@@ -19,7 +19,15 @@ export interface ICreateUser {
 	password: string
 }
 
+export interface IUserUpdate {
+	id: string
+	email?: string
+	first_name?: string
+	last_name?: string
+}
+
 export interface IUserRepository {
 	insert(user: ICreateUser): Promise<IUserOut>
 	findByEmail(email: string): Promise<IUserWithPassOut>
+	update(user: IUserUpdate): Promise<IUserOut>
 }

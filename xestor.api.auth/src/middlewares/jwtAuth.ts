@@ -1,5 +1,5 @@
 import { NextFunction, Request, response, Response } from "express";
-import { verify } from "jsonwebtoken";
+import { JsonWebTokenError, TokenExpiredError, verify } from "jsonwebtoken";
 import { CustomError } from "../errors/CustomError";
 
 export function jwtAuth(req: Request, res: Response, next: NextFunction) {
@@ -11,11 +11,22 @@ export function jwtAuth(req: Request, res: Response, next: NextFunction) {
 
 	const [, token] = (jwtAuth).split(' ')
 
-	const jwt = verify(token, process.env.SECRET as string, {
-		complete: true
-	})
+	try {
+		const jwt = verify(token, process.env.SECRET as string, {
+			complete: true
+		})
 
-	res.set({ userEmail: jwt.payload.sub })
+		res.set({ userEmail: jwt.payload.sub })
+	} catch (err) {
+		if (err instanceof TokenExpiredError) {
+			throw new CustomError(403, 'Token expired!')
+		}
+		if (err instanceof JsonWebTokenError) {
+			throw new CustomError(403, 'Token invalid!')
+		}
+		throw new CustomError(403, Error(err as string).message)
+	}
+
 
 	return next()
 }

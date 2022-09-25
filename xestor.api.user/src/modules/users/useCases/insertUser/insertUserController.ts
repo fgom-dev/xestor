@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
-import { CreateUser } from '../../repositories/IUserRepository';
+import { ICreateUser } from '../../repositories/IUserRepository';
 import { InsertUserUseCase } from './insertUserUseCase';
 
 export class InsertUserController {
 	constructor(private insertUserUseCase: InsertUserUseCase) { }
 
 	async handle(req: Request, res: Response) {
-		const user: CreateUser = {
+		const user: ICreateUser = {
 			...req.body
 		}
 
