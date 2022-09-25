@@ -1,0 +1,34 @@
+version: '3.1'
+
+services:
+  xestor.user:
+    image: postgres
+    container_name: xestor.user
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=semog
+      - POSTGRES_PASSWORD=Dr4inY0u
+      - POSTGRES_DB=xestor.user
+    volumes:
+      - pguserdata:/userdata
+
+  xestor.blacklist:
+    image: postgres
+    container_name: xestor.blacklist
+    restart: always
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=semog
+      - POSTGRES_PASSWORD=Dr4inY0u
+      - POSTGRES_DB=xestor.blacklist
+    volumes:
+      - pgblacklistdata:/blacklistdata
+
+volumes:
+  pguserdata:
+    driver: local
+  pgblacklistdata:
+    driver: local
