@@ -5,4 +5,5 @@ export interface IBlackListOut {
 
 export interface IBlackListRepository {
 	insert(token: string): Promise<IBlackListOut>
+	findByToken(token: string): Promise<IBlackListOut>
 }

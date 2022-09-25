@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { CustomError } from '../../../../errors/CustomError'
-import { GenerateTokenProvider } from '../../../../providers/GenerateTokenProvider'
+import { GenerateTokenProvider, IUser } from '../../../../providers/GenerateTokenProvider'
 
 interface ILogin {
 	email: string
@@ -16,16 +16,22 @@ export class LoginUseCase {
 	constructor(private generateTokenProvider: GenerateTokenProvider) { }
 
 	async execute({ email, password }: ILogin) {
-		const user = await axios.post('http://localhost:3000/users/validate', {
+		const response = await axios.post('http://localhost:3000/users/validate', {
 			email,
 			password
 		}).catch((error) => {
 			throw new CustomError(error.response.status, error.response.data.error);
 		});
 
-		const accessToken = await this.generateTokenProvider.acessToken(user.data);
+		const user = response.data as IUser
 
-		const refreshToken = await this.generateTokenProvider.refreshToken(user.data);
+		if (!user) {
+			throw new CustomError(400, 'User or password is invalid!')
+		}
+
+		const accessToken = await this.generateTokenProvider.acessToken(user);
+
+		const refreshToken = await this.generateTokenProvider.refreshToken(user);
 
 		const token: ITokenOut = {
 			accessToken,

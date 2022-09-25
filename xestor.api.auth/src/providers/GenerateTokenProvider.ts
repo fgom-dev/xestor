@@ -1,11 +1,11 @@
 import { JwtPayload, sign } from 'jsonwebtoken'
 
-interface IUser {
+export interface IUser {
 	id: string
-	email: string
-	password: string
 	first_name: string
 	last_name: string
+	email: string
+	password: string
 	status: string
 	created_at: Date
 	updated_at: Date
