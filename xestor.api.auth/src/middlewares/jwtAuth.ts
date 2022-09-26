@@ -19,14 +19,13 @@ export function jwtAuth(req: Request, res: Response, next: NextFunction) {
 		res.set({ userEmail: jwt.payload.sub })
 	} catch (err) {
 		if (err instanceof TokenExpiredError) {
-			throw new CustomError(403, 'Token expired!')
+			throw new CustomError(401, 'Token expired!')
 		}
 		if (err instanceof JsonWebTokenError) {
-			throw new CustomError(403, 'Token invalid!')
+			throw new CustomError(401, 'Token invalid!')
 		}
-		throw new CustomError(403, Error(err as string).message)
+		throw new CustomError(401, Error(err as string).message)
 	}
-
 
 	return next()
 }

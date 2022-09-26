@@ -12,6 +12,6 @@ export class InsertUserController {
 
 		const newUser = await this.insertUserUseCase.execute(user)
 
-		res.status(200).json(newUser)
+		return res.status(200).json(newUser)
 	}
 }
