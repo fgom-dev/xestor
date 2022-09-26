@@ -28,6 +28,6 @@ export interface IUserUpdate {
 
 export interface IUserRepository {
 	insert(user: ICreateUser): Promise<IUserOut>
-	findByEmail(email: string): Promise<IUserWithPassOut>
+	findByEmail(email: string): Promise<IUserOut>
 	update(user: IUserUpdate): Promise<IUserOut>
 }

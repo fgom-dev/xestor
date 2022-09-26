@@ -16,8 +16,6 @@ export async function jwtAuth(req: Request, res: Response, next: NextFunction) {
 
 	const userEmail = response.data
 
-	console.log(userEmail)
-
 	res.set({ userEmail })
 
 	return next()

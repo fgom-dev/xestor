@@ -14,47 +14,33 @@ export class UserRepository implements IUserRepository {
 			},
 			where: {
 				id
-			},
-			select: {
-				id: true,
-				email: true,
-				first_name: true,
-				last_name: true,
-				status: true,
-				created_at: true,
-				updated_at: true
 			}
 		})
 
 		return user
 	}
 
-	async findByEmail(email: string): Promise<IUserWithPassOut> {
+	async findByEmail(email: string): Promise<IUserOut> {
 		const user = await this.prismaUser.findUnique({
 			where: {
 				email
 			}
 		})
 
-		return user as IUserWithPassOut
+		return user as IUserOut
 	}
 
-	async insert(data: ICreateUser): Promise<IUserOut> {
+	async insert({ email, first_name, last_name, password }: ICreateUser): Promise<IUserOut> {
 		const user = await this.prismaUser.create({
 			data: {
-				email: data.email,
-				first_name: data.first_name,
-				last_name: data.last_name,
-				password: data.password
-			},
-			select: {
-				id: true,
-				email: true,
-				first_name: true,
-				last_name: true,
-				status: true,
-				created_at: true,
-				updated_at: true
+				email,
+				first_name,
+				last_name,
+				password: {
+					create: {
+						password
+					}
+				}
 			}
 		})
 
