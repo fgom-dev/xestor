@@ -18,6 +18,6 @@ export class UpdateUserController {
 
 		const userUpdated = await this.updateUserUseCase.execute(user)
 
-		res.status(200).json(userUpdated)
+		return res.status(200).json(userUpdated)
 	}
 }

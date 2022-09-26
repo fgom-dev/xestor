@@ -27,8 +27,23 @@ services:
     volumes:
       - pgblacklistdata:/blacklistdata
 
+  xestor.company:
+    image: postgres
+    container_name: xestor.company
+    restart: always
+    ports:
+      - 5434:5432
+    environment:
+      - POSTGRES_USER=semog
+      - POSTGRES_PASSWORD=Dr4inY0u
+      - POSTGRES_DB=xestor.company
+    volumes:
+      - pgcompanydata:/userdata
+
 volumes:
   pguserdata:
     driver: local
   pgblacklistdata:
+    driver: local
+  pgcompanydata:
     driver: local

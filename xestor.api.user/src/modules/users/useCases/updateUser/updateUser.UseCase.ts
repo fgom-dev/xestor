@@ -1,4 +1,3 @@
-import { CustomError } from "../../../../errors/CustomError";
 import { IUserRepository, IUserUpdate } from "../../repositories/IUserRepository";
 
 export class UpdateUserUseCase {
