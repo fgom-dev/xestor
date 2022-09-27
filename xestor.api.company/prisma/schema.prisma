@@ -20,7 +20,7 @@ model Company {
   status             String?   @default("a")
   created_at         DateTime? @default(now())
   updated_at         DateTime? @default(now())
-  adresses           Address[]
+  addresses          Address[]
   contacts           Contact[]
 
   @@map("company")

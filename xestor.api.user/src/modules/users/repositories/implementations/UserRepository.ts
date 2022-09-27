@@ -1,5 +1,5 @@
 import { prisma } from "../../../../prisma/client";
-import { ICreateUser, IUserRepository, IUserOut, IUserWithPassOut, IUserUpdate } from "../IUserRepository";
+import { ICreateUser, IUserRepository, IUserOut, IUserUpdate } from "../IUserRepository";
 
 export class UserRepository implements IUserRepository {
 	constructor(private prismaUser = prisma.user) { }

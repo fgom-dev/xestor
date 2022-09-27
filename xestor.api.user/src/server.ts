@@ -1,14 +1,18 @@
 import 'express-async-errors';
-import express, { NextFunction, Request, Response } from 'express'
+import {env} from 'process';
+import type {NextFunction, Request, Response} from 'express';
+import express from 'express';
 
-import { CustomError } from './errors/CustomError'
-import { router } from './routes'
+import {CustomError} from './errors/CustomError';
+import {router} from './routes';
 
-const app = express()
+const port = env.API_PORT!;
 
-app.use(express.json())
+const app = express();
 
-app.use(router)
+app.use(express.json());
+
+app.use(router);
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
 	if (error instanceof CustomError) {
@@ -20,6 +24,8 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
 	return res.json({
 		error: error.message,
 	});
-})
+});
 
-app.listen(Number(process.env.API_PORT), () => console.log(`Server is running in port ${process.env.API_PORT}`))
+app.listen(Number(port), () => {
+	console.log(`Server is running in port ${port}`);
+});
